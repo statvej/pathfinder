@@ -1,6 +1,8 @@
-5
+6
 Kyiv-Sumy,400
 Lviv-Odesa,600
 Lviv-Kyiv,800
 Kharkiv-Kyiv,700
 Kharkiv-Sumy,300
+Kharkiv-Kyiv,500
+Pp-Sumy,1000

@@ -17,6 +17,8 @@ int mx_check_dupl(char **check, char *sub)
 
 char **mx_get_island_names(char **untrimed, int side_size)
 {
+    
+    mx_print_strarr(untrimed, "\n");
     int count_break = 0;
     char **lines = untrimed;
 
@@ -55,12 +57,14 @@ char **mx_get_island_names(char **untrimed, int side_size)
 
     for (; count1 != side_size; count1++)
     {
-        char *temp = (char *)malloc(sizeof(char) * 100 + 1);
         arr_temp = mx_strsplit(untrimed[count1], '-');
+        char *temp = (char *)malloc(sizeof(char) * mx_strlen(arr_temp[1]));
+        
         for (int count2 = 0; arr_temp[1][count2] != ','; count2++)
         {
             temp[count2] = arr_temp[1][count2];
         }
+        
         if (mx_check_dupl(ret, temp) == 1)
         {
 
