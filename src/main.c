@@ -3,7 +3,7 @@
 #include <stdio.h>
 int main(int argc, char **argv)
 {
-    argc++;
+    mx_check_args(argc);
     char *data = (char *)malloc(1024);
     char **lines = (char **)malloc(1024 * sizeof(char *));
     lines[1023] = NULL;
@@ -12,22 +12,11 @@ int main(int argc, char **argv)
     close(fd);
     lines = mx_strsplit(data, '\n');
     int side_size = mx_read_island_count(data);
-    char **trimed = mx_get_island_names(&lines[1], side_size);
-    mx_print_strarr(trimed, "\n1");
-    // t_index_island
-    // int **matrix = mx_create_matrix(&lines[1], side_size);
-    for (int i = 0; i < 5; i++)
-    {
-        printf("%s\n", trimed[i]);
-    }
-    // int namesLen = mx_get_lines_count(trimed);
-    // //size_t pp = sizeof(lines) / sizeof(char *);
-    // printf("%d\n", namesLen);
-    //t_index_island *struct_arr = mx_gen_index_struct(trimed, side_size);
-    // printf("%s\n", struct_arr[0].island);
-    // mx_create_matrix(struct_arr, trimed, side_size);
-    // t_straight_len * struct_len = mx_get_straight_len_struct(&lines[1]);
+    int namesLen = mx_get_lines_count(&lines[1]);
+    char **trimed = mx_get_island_names(&lines[1], side_size, namesLen);
+    t_straight_len*pp = mx_get_straight_len_struct(&lines[1], namesLen);
+    printf("%s\n%s\n%d\n",pp[1].start, pp[1].dest, pp[1].len);
+    mx_print_strarr(trimed, "\nZZ");
     free(data);
     free(lines);
 }
-//int argc, char **argv
