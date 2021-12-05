@@ -1,2 +1,4 @@
 #done In get_islands_name remake first loop as the second
 #done Optimise strings count through counting lines of the file
+#String overlay in len struct function
+#Сделать функции красивыми стобы не глючило

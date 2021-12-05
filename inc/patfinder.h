@@ -1,30 +1,26 @@
 #define MAX_FILE_SIZE 1024
 #define INT_MAX 2147483647
 
-
-typedef struct s_ind_list
-{
+typedef struct s_ind_list {
     int index;
     struct s_ind_list *next;
 
-}t_ind_list;
+} t_ind_list;
 
-typedef struct s_route//for saving and printing results
+typedef struct s_route //for saving and printing results
 {
     int start;
     int dest;
-    int *route;
-}t_route;
+    t_ind_list *list;
+} t_route;
 
-typedef struct s_index_island
-{
+typedef struct s_index_island {
     int index;
     char *island;
 
 } t_index_island;
 
-typedef struct s_straight_len
-{
+typedef struct s_straight_len {
     char *start;
     char *dest;
     int len;
