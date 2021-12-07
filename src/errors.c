@@ -1,5 +1,6 @@
-#include "../libmx/inc/libmx.h"
-#include "../inc/patfinder.h"
+#include "libmx.h"
+#include "patfinder.h"
+#include <stdio.h>
 
 //prints message to stderr stream
 static void printerr(const char *str) {

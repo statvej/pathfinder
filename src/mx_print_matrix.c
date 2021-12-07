@@ -1,7 +1,6 @@
-#include "../libmx/inc/libmx.h"
-#include "../inc/patfinder.h"
+#include "libmx.h"
+#include "patfinder.h"
 #include <stdio.h>
-
 void mx_print_matrix(int **matrix, int side_size)
 {
     for (int i = 0; i < side_size; i++)

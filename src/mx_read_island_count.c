@@ -1,5 +1,5 @@
-#include "../libmx/inc/libmx.h"
-#include "../inc/patfinder.h"
+#include "libmx.h"
+#include "patfinder.h"
 #include <stdio.h>
 int mx_read_island_count(char *data)
 {

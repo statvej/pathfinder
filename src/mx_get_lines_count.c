@@ -1,6 +1,6 @@
-#include "../libmx/inc/libmx.h"
-#include "../inc/patfinder.h"
-
+#include "libmx.h"
+#include "patfinder.h"
+#include <stdio.h>
 int mx_get_lines_count(char **text)
 {
     if (!text)

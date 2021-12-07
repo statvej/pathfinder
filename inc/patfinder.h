@@ -11,7 +11,8 @@ typedef struct s_route //for saving and printing results
 {
     int start;
     int dest;
-    t_ind_list *list;
+    int links_count;
+    int *list;
 } t_route;
 
 typedef struct s_index_island {
@@ -44,6 +45,10 @@ t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
 int mx_get_lines_count(char **text);
 
 void mx_print_matrix(int **matrix, int side_size);
+
+t_route* mx_init_route_struct(int side_size);
+
+t_route* mx_algorithm(t_route *struct_route, int **matrix, int side_size);
 
 //Errors
 void mx_check_args(int argc);
