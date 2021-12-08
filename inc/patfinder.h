@@ -1,11 +1,11 @@
 #define MAX_FILE_SIZE 1024
 #define INT_MAX 2147483647
+#define MAX_STOPS 5000
+// typedef struct s_ind_list {
+//     int index;
+//     struct s_ind_list *next;
 
-typedef struct s_ind_list {
-    int index;
-    struct s_ind_list *next;
-
-} t_ind_list;
+// } t_ind_list;
 
 typedef struct s_route //for saving and printing results
 {
@@ -27,7 +27,7 @@ typedef struct s_straight_len {
     int len;
 
 } t_straight_len;
-
+ 
 int mx_read_island_count(char *data);
 
 int mx_atoi(const char *str);
@@ -45,6 +45,8 @@ t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
 int mx_get_lines_count(char **text);
 
 void mx_print_matrix(int **matrix, int side_size);
+
+void print_route_struct(t_route *arr_route, int elements);
 
 t_route* mx_init_route_struct(int side_size);
 

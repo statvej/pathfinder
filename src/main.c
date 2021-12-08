@@ -27,9 +27,10 @@ int main(int argc, char **argv) {
     // for (int i = 0; i < side_size * (side_size - 1) / 2; i++) {
     //     printf("start is = %d\ndest is %d\n", route_arr[i].start, route_arr[i].dest);
     // }
+    mx_print_matrix(matrix, side_size);
+    printf("\n\t DELIM!!!\n\n");
     route_arr = mx_algorithm(route_arr, matrix, side_size);
 
-    //mx_print_matrix(matrix, side_size);
 
     free(data);
     free(lines);
