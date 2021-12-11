@@ -9,8 +9,8 @@ t_route *mx_init_route_struct(int side_size) {
         for (int count2 = 1; count2 + count1 < side_size; count2++) {
             ret[grand_count].start = count1;
             ret[grand_count].dest = count2 + count1;
-            ret[grand_count].list = (int *)malloc(sizeof(int) * MAX_STOPS);
-            for (int i = 0; i < MAX_STOPS; i++)
+            ret[grand_count].list = (int *)malloc(sizeof(int) * side_size);
+            for (int i = 0; i < side_size; i++)
             {
                 ret[grand_count].list[i] = -1;
             }

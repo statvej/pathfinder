@@ -52,6 +52,10 @@ t_route* mx_init_route_struct(int side_size);
 
 t_route* mx_algorithm(t_route *struct_route, int **matrix, int side_size);
 
+int get_index_route(int *list);
+
+void mx_free_matrix(int **ptr, int len);
+
 //Errors
 void mx_check_args(int argc);
 void mx_check_file(int fd, const char *filename);

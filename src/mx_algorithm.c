@@ -16,20 +16,34 @@ t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size) {
                     for (int sub = 0; sub < 1; sub++) {
                         for (int save_count = 0; save_count < side_size * (side_size - 1) / 2; save_count++) { //Добавление данных в структуру по которой пойдет печать
                             if (struct_route[save_count].start == start && struct_route[save_count].dest == dest) {
-                                printf("\tSTAGE BREAK ON %d\n\n", stage);
-                                struct_route[save_count].list[struct_route[save_count].links_count] = stage;
-                                struct_route[save_count].links_count++;
+                                
+                                int temp_lis_index= get_index_route(struct_route[save_count].list);
+                                struct_route[save_count].list[temp_lis_index] = stage;
+                                
                             }
                         }
                     }
-                    printf("STAGE BREAK ON %d\n\n", stage);
+                    
                     matrix[start][dest] = matrix[start][stage] + matrix[stage][dest];
                 }
             }
         }
     }
     // printf("STAGE ID = %d\n", struct_route[1].list[1]);
-    print_route_struct(struct_route, 10);
+    //print_route_struct(struct_route, 10);
     mx_print_matrix(matrix, side_size);
+    mx_free_matrix(matrix, side_size);
+    
     return struct_route;
 }
+int get_index_route(int *list) {
+    int res = 0;
+   while (list[res] != -1)
+   {
+       res++;
+   }
+   
+
+    return res;
+}
+//t_route * post_algorithm_processing()

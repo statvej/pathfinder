@@ -2,4 +2,6 @@
 #2. Optimise strings count through counting lines of the file
 #3. String overlay in len struct function
 #4. Сделать функции красивыми стобы не глючило
-5. Fix algorithm function and add route saving ability 
+#5. Fix algorithm function and add route saving ability 
+#{ROUTE SAVING ABILITY ACTUALY WORKED, BUT I DIDNT COMPLETLY UNDERSTAND HOW ALGORITHM WORKS} 
+6. Code post processing function, to completly finish struct array for printing
