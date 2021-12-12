@@ -14,24 +14,15 @@ int main(int argc, char **argv) {
     char **trimed = mx_get_island_names(&lines[1], side_size, namesLen);
     t_index_island *struct_arr = mx_gen_index_struct(trimed, side_size);
     t_straight_len *arr_len = mx_get_straight_len_struct(&lines[1], namesLen);
-    //mx_print_strarr(trimed, "\n DELIM \n");
-    // for (int count = 0; count < side_size; count++) {
-    //     printf("ind struct = %s\n", struct_arr[count].island);
-    // }
-    // for (int count = 0; count < namesLen; count++) {
-    //     printf("len struct start = %s\n", arr_len[count].start);
-    //     printf("len struct dest = %s\nlen struct len = %d\n", arr_len[count].dest, arr_len[count].len);
-    // }
+    print_index_struct(struct_arr, side_size);
+    print_len_struct(arr_len, namesLen);
     int **matrix = mx_create_matrix(struct_arr, arr_len, side_size, namesLen);
-    t_route *route_arr = mx_init_route_struct(side_size);
-    // for (int i = 0; i < side_size * (side_size - 1) / 2; i++) {
-    //     printf("start is = %d\ndest is %d\n", route_arr[i].start, route_arr[i].dest);
-    // }
     mx_print_matrix(matrix, side_size);
+    t_route *route_arr = mx_init_route_struct(side_size);
     printf("\n\t DELIM!!!\n\n");
     route_arr = mx_algorithm(route_arr, matrix, side_size);
 
-
+    mx_free_route(route_arr);
     free(data);
     free(lines);
 }

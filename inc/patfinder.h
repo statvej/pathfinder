@@ -28,33 +28,43 @@ typedef struct s_straight_len {
 
 } t_straight_len;
  
-int mx_read_island_count(char *data);
 
-int mx_atoi(const char *str);
+//Processing
 
-int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, int side_size, int names_len);
-
-char **mx_get_island_names(char **lines, int side_size, int line_count);
-
-int mx_check_dupl(char **main, char *sub);
-
-t_index_island *mx_gen_index_struct(char **trimed, int side_size);
-
-t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
-
-int mx_get_lines_count(char **text);
-
-void mx_print_matrix(int **matrix, int side_size);
-
-void print_route_struct(t_route *arr_route, int elements);
-
-t_route* mx_init_route_struct(int side_size);
 
 t_route* mx_algorithm(t_route *struct_route, int **matrix, int side_size);
 
-int get_index_route(int *list);
 
+
+//Checks
+
+void mx_print_matrix(int **matrix, int side_size);
+void print_route_struct(t_route *arr_route, int elements);
+void print_index_struct(t_index_island *struct_index, int elem_num);
+void print_len_struct(t_straight_len * arr_len, int namesLen);
+
+
+//Utilities
+
+int mx_read_island_count(char *data);
+int mx_check_dupl(char **main, char *sub);
+int mx_get_lines_count(char **text);
+int get_index_route(int *list);
+int mx_atoi(const char *str);
+
+//Creating data structures
+
+t_route* mx_init_route_struct(int side_size);
+t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
+t_index_island *mx_gen_index_struct(char **trimed, int side_size);
+char **mx_get_island_names(char **lines, int side_size, int line_count);
+
+//Free functions
+
+int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, int side_size, int names_len);
 void mx_free_matrix(int **ptr, int len);
+void mx_free_route(t_route *route);
+
 
 //Errors
 void mx_check_args(int argc);

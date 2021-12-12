@@ -16,20 +16,12 @@ int **init_matrix(int side_size) {
 
 int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *arr_len, int side_size, int names_len) {
     int **matrix = init_matrix(side_size);
-    // for (int count = 0; count < names_len; count++) {
-    //     printf("len struct start = %s\n", arr_len[count].start);
-    //     printf("len struct dest = %s\nlen struct len = %d\n", arr_len[count].dest, arr_len[count].len);
-    // }
-    //     for (int count = 0; count < side_size; count++) {
-    //     printf("ind struct = %s\t%d\n", struct_arr[count].island, struct_arr[count].index);
-    // }
     for (int count = 0; count < names_len; count++) {
         int check = 0;
         char *start = mx_strndup(arr_len[count].start, mx_strlen(arr_len[count].start));
         char *dest = mx_strndup(arr_len[count].dest, mx_strlen(arr_len[count].dest));
         int ind_s = -1;
         int ind_d = -1;
-        //printf("start in %s\narrive to %s\n", arr_len[count].start, arr_len[count].dest);
         for (int count2 = 0; count2 < side_size && check <= 0; count2++) {
 
             if (mx_strcmp(struct_arr[count2].island, start) == 0) {
@@ -38,7 +30,6 @@ int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *arr_len, int 
             if (mx_strcmp(struct_arr[count2].island, dest) == 0) {
                 ind_d = struct_arr[count2].index;
             }
-            //printf("s is %d\nd is %d\n", ind_s, ind_d);
             if (ind_d != -1 && ind_s != -1) {
                 matrix[ind_s][ind_d] = arr_len[count].len;
                 matrix[ind_d][ind_s] = arr_len[count].len;

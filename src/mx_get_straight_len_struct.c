@@ -2,7 +2,7 @@
 #include "libmx.h"
 
 t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count) {
-    t_straight_len *ret = (t_straight_len *)malloc(sizeof(t_straight_len *) * (line_count));
+    t_straight_len *ret = (t_straight_len *)malloc(sizeof(t_straight_len) * (line_count));
     int count1 = 0;
     char **arr_temp = NULL;
     char **arr_temp_sub = NULL;
