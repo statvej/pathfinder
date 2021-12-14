@@ -15,10 +15,7 @@ int main(int argc, char **argv) {
     t_index_island *struct_arr = mx_gen_index_struct(trimed, side_size);
     t_straight_len *arr_len = mx_get_straight_len_struct(&lines[1], namesLen);
     t_ind_len * ind_len = make_ind_len_struct(struct_arr, arr_len, namesLen, side_size);
-    print_ind_len_struct(ind_len, namesLen);
-    print_index_struct(struct_arr, side_size);
     int **matrix = mx_create_matrix(struct_arr, arr_len, side_size, namesLen);
-    mx_print_matrix(matrix, side_size);
     t_route *route_arr = mx_init_route_struct(side_size);
     route_arr = mx_algorithm(route_arr, matrix, side_size, ind_len, namesLen);
 

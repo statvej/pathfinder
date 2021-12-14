@@ -54,6 +54,8 @@ int mx_check_dupl(char **main, char *sub);
 int mx_get_lines_count(char **text);
 int get_index_route(int *list);
 int mx_atoi(const char *str);
+int is_path_straight(int start, int dest, int namesLen, t_ind_len *ind_len);
+int get_index_from_route_struct(int start, int dest, int path_num, t_route *route);
 
 //Creating data structures
 
