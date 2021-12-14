@@ -6,12 +6,15 @@
 //     struct s_ind_list *next;
 
 // } t_ind_list;
-
+typedef struct s_ind_len{
+    int start;
+    int dest;
+    int len;
+}t_ind_len;
 typedef struct s_route //for saving and printing results
 {
     int start;
     int dest;
-    int links_count;
     int *list;
 } t_route;
 
@@ -42,7 +45,7 @@ void mx_print_matrix(int **matrix, int side_size);
 void print_route_struct(t_route *arr_route, int elements);
 void print_index_struct(t_index_island *struct_index, int elem_num);
 void print_len_struct(t_straight_len * arr_len, int namesLen);
-
+void print_ind_len_struct(t_ind_len *arr_len, int namesLen);
 
 //Utilities
 
@@ -58,6 +61,7 @@ t_route* mx_init_route_struct(int side_size);
 t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
 t_index_island *mx_gen_index_struct(char **trimed, int side_size);
 char **mx_get_island_names(char **lines, int side_size, int line_count);
+t_ind_len *make_ind_len_struct(t_index_island *struct_arr, t_straight_len *arr_len, int namesLen, int side_size);
 
 //Free functions
 

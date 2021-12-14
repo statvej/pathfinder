@@ -41,6 +41,7 @@ int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *arr_len, int 
     }
     return matrix;
 }
+
 t_index_island *mx_gen_index_struct(char **trimed, int side_size) {
     t_index_island *ret = (t_index_island *)malloc(sizeof(t_index_island) * side_size);
 
@@ -102,8 +103,6 @@ t_route *mx_init_route_struct(int side_size) {
                 ret[grand_count].list[i] = -1;
                 // printf("\t\t%d\n", ret[grand_count].list[i]);
             }
-
-            ret[grand_count].links_count = 0;
             grand_count++;
         }
         if (grand_count >= (side_size * (side_size - 1)) / 2) {
@@ -113,4 +112,31 @@ t_route *mx_init_route_struct(int side_size) {
     // print_route_struct(ret, 10);
     return ret;
 }
+t_ind_len *make_ind_len_struct(t_index_island *struct_arr, t_straight_len *arr_len, int namesLen, int side_size) {
+    t_ind_len *ret = (t_ind_len *)malloc(sizeof(t_ind_len) * namesLen);
+    for (int count = 0; count < namesLen; count++) {
+        int check = 0;
+        char *start = mx_strndup(arr_len[count].start, mx_strlen(arr_len[count].start));
+        char *dest = mx_strndup(arr_len[count].dest, mx_strlen(arr_len[count].dest));
+        int ind_s = -1;
+        int ind_d = -1;
+        for (int count2 = 0; count2 < side_size && check <= 0; count2++) {
 
+            if (mx_strcmp(struct_arr[count2].island, start) == 0) {
+                ind_s = struct_arr[count2].index;
+            }
+            if (mx_strcmp(struct_arr[count2].island, dest) == 0) {
+                ind_d = struct_arr[count2].index;
+            }
+            if (ind_d != -1 && ind_s != -1) {
+                ret[count].start = ind_s;
+                ret[count].dest = ind_d;
+                ret[count].len = arr_len[count].len;
+                check++;
+            }
+        }
+        free((void *)start);
+        free((void *)dest);
+    }
+    return ret;
+}
