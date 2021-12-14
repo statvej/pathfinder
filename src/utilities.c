@@ -47,3 +47,11 @@ int mx_check_dupl(char **check, char *sub) {
     return 1;
 }
 
+int get_index_route(int *list) {
+    int res = 0;
+    while (list[res] != -1) {
+        res++;
+    }
+
+    return res;
+}

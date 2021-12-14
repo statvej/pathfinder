@@ -35,7 +35,7 @@ typedef struct s_straight_len {
 //Processing
 
 
-t_route* mx_algorithm(t_route *struct_route, int **matrix, int side_size);
+t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len * ind_len, int namesLen);
 
 
 

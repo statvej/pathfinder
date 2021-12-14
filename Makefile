@@ -6,7 +6,7 @@ LDIR = libmx
 #compiler settings
 CC = clang
 CFLAGS = -std=c11
-CCFLAGS = -std=c11 -g -Wall -Wextra -Werror -Wpedantic #-Og -g3 -fsanitize=address
+CCFLAGS = -std=c11# -g -Wall -Wextra -Werror -Wpedantic #-Og -g3 -fsanitize=address
 FLAGS = $(CCFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
 #dependencies
 NAME = pathfinder
