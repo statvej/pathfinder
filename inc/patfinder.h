@@ -32,7 +32,7 @@ typedef struct s_straight_len {
 } t_straight_len;
  
 
-//Processing
+//Processing  
 
 
 t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len * ind_len, int namesLen);
@@ -48,8 +48,10 @@ void print_route_struct(t_route *arr_route, int elements);
 void print_index_struct(t_index_island *struct_index, int elem_num);
 void print_len_struct(t_straight_len * arr_len, int namesLen);
 void print_ind_len_struct(t_ind_len *arr_len, int namesLen);
+void print_single_route_struct(t_route route);
+void conect_routes_print_check(int *main, int *sub, int start, int dest, int side_size);
 
-//Utilities
+//Utilities   
 
 int mx_read_island_count(char *data);
 int mx_check_dupl(char **main, char *sub);
