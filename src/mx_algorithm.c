@@ -25,13 +25,14 @@ t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_
         }
     }
     struct_route = temp_path_completion(struct_route, side_size);
+    struct_route = post_algorithm_processing(struct_route, side_size, matrix, ind_len, namesLen);
     print_route_struct(struct_route, side_size * (side_size - 1) / 2);
     mx_print_matrix(matrix, side_size);
     mx_free_matrix(matrix, side_size);
 
     return struct_route;
 }
-t_route *temp_path_completion(t_route *route, int side_size) {
+t_route *temp_path_completion(t_route *route, int side_size) { // Ads to list of islands start and dest points
     int path_num = side_size * (side_size - 1) / 2;
     for (int i = 0; i < path_num; i++) {
 
@@ -50,6 +51,8 @@ t_route *temp_path_completion(t_route *route, int side_size) {
     }
     return route;
 }
+
+// Checks if global route is correct
 int check_optimal_route(t_route checked, int **matrix, t_ind_len *ind_len, int namesLen) {
 
     int arr_size = get_index_route(checked.list); // preparation before check
@@ -97,24 +100,63 @@ int get_num_index_in_arr(int num, int *arr, int arr_size) {
             return i;
         }
     }
-    return -1
+    return -1;
+}
+
+int *conect_routes(int *main, int *sub, int start, int dest, int side_size) {
+    int ind_s = get_num_index_in_arr(start, main, side_size);
+    int ind_d = get_num_index_in_arr(dest, main, side_size);
+    int sub_size = get_index_route(sub);
+    int *temp_arr = (int *)malloc(sizeof(int) * side_size);
+    int pre_count, rewr_count, post_count, grand_count;
+    grand_count = 0;
+    for (int i = 0; i < side_size; i++) { // Preparetionn of temporary array for rewriting
+        temp_arr[i] = -1;
+    }
+
+    for (pre_count = 0; pre_count < ind_s; pre_count++) { // temp_arr to full route
+        temp_arr[grand_count] = main[pre_count];
+        grand_count++;
+    }
+    for (rewr_count = 0; rewr_count < sub_size; rewr_count++) {
+        temp_arr[grand_count] = sub[rewr_count];
+        grand_count++;
+    }
+    for (post_count = ind_d + 1; main[post_count] != -1; post_count++) {
+        temp_arr[grand_count] = main[post_count];
+        grand_count++;
+    }
+
+    for (grand_count = 0; temp_arr[grand_count] != -1; grand_count++) { // final rewrite
+        main[grand_count] = temp_arr[grand_count];
+    }
+
+    free(temp_arr);
+    return main;
 }
 
 t_route *
 post_algorithm_processing(t_route *struct_route, int side_size, int **matrix, t_ind_len *ind_len, int namesLen) {
     int path_num = side_size * (side_size - 1) / 2;
+    mx_printstr("\ttest\n");
     for (int count1 = 0; count1 < path_num; count1++) {
-
+        mx_printstr("\tfirst for loop test\n");
         if (struct_route[count1].list[2] != -1) {
-
-            while (check_optimal_route(struct_route[count1], matrix, ind_len, namesLen) != 1) {//WHILE PATH IS NOT OPTIMAL OPTIMISATION CONTINOUS
-                for (int count2 = 0; count2 < get_index_route(struct_route[count1].list) - 2; count2++) {
+            mx_printstr("\tfirst if test\n");
+            // WHILE PATH IS NOT OPTIMAL OPTIMISATION CONTINOUS
+            while (check_optimal_route(struct_route[count1], matrix, ind_len, namesLen) != 1) {
+                mx_printstr("\twhile loop test\n");
+                // Going through all the destinations
+                for (int count2 = 0; count2 < get_index_route(struct_route[count1].list) - 2;
+                     count2++) { // Probably should be changed to "-1", instead of "-2"
+                    mx_printstr("\t second for loop test\n");
                     int temp_start = struct_route[count1].list[count2];
                     int temp_dest = struct_route[count1].list[count2 + 1];
-                    if (is_path_straight(temp_start, temp_dest, ind_len) == 0) {
+                    if (is_path_straight(temp_start, temp_dest, namesLen, ind_len) == false) {
+                        mx_printstr("\tsecond if test\n");
                         int temp_ind = get_index_from_route_struct(temp_start, temp_dest, path_num, struct_route);
-                        int temp_arr_size = get_num_index_in_arr(temp_dest, struct_route[temp_ind].list, side_size);
-                        int * temp_arr = (int *)malloc(sizeof(int) * temp_arr_size);
+                        struct_route[count1].list = conect_routes(
+                            struct_route[count1].list, struct_route[temp_ind].list, temp_start, temp_dest, side_size);
                     }
                 }
             }

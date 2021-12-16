@@ -37,6 +37,8 @@ typedef struct s_straight_len {
 
 t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len * ind_len, int namesLen);
 t_route *temp_path_completion(t_route *route, int side_size);
+t_route *post_algorithm_processing(t_route *struct_route, int side_size, int **matrix, t_ind_len *ind_len, int namesLen);
+int *conect_routes(int *main, int *sub, int start, int dest, int side_size);
 
 
 //Checks
@@ -56,6 +58,7 @@ int get_index_route(int *list);
 int mx_atoi(const char *str);
 int is_path_straight(int start, int dest, int namesLen, t_ind_len *ind_len);
 int get_index_from_route_struct(int start, int dest, int path_num, t_route *route);
+int get_num_index_in_arr(int num, int *arr, int arr_size);
 
 //Creating data structures
 
