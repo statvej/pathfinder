@@ -1,7 +1,8 @@
 #include "libmx.h"
 #include "patfinder.h"
 #include <stdio.h>
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     mx_check_args(argc);
     char *data;
 
@@ -21,8 +22,10 @@ int main(int argc, char **argv) {
     route_arr = mx_algorithm(route_arr, matrix, side_size, ind_len, namesLen);
 
     mx_print_result(route_arr, struct_arr, ind_len, side_size, matrix, namesLen);
-
-    mx_free_route(route_arr);
+    mx_free_strght_len_struct(arr_len, namesLen);
+    mx_free_ind_len(ind_len);
+    mx_free_ind_isl(struct_arr, side_size);
+    mx_free_route(route_arr, side_size);
     mx_free_matrix(matrix, side_size);
     free(data);
     free(lines);

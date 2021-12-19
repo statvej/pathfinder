@@ -76,12 +76,15 @@ t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count);
 t_index_island *mx_gen_index_struct(char **trimed, int side_size);
 char **mx_get_island_names(char **lines, int side_size, int line_count);
 t_ind_len *make_ind_len_struct(t_index_island *struct_arr, t_straight_len *arr_len, int namesLen, int side_size);
+int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, int side_size, int names_len);
 
 //Free functions
 
-int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, int side_size, int names_len);
 void mx_free_matrix(int **ptr, int len);
-void mx_free_route(t_route *route);
+void mx_free_route(t_route *route, int side_size);
+void mx_free_strght_len_struct(t_straight_len *straight_len, int namesLen);
+void mx_free_ind_len(t_ind_len *ind_len);
+void mx_free_ind_isl(t_index_island *ind_isl, int side_size);
 
 //Result printing
 

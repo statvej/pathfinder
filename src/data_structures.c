@@ -72,7 +72,7 @@ char **mx_get_island_names(char **untrimed, int side_size, int line_count) {
         free(arr_temp);
         free(arr_temp_sub);
     }
-    *trim = NULL;
+    
     return ret;
 }
 t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count) {

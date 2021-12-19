@@ -46,7 +46,7 @@ t_route *temp_path_completion(t_route *route, int side_size) { // Ads to list of
         for (int count2 = 0; count2 < arr_size; count2++) { // Rewrite of data
             route[i].list[count2] = path[count2];
         }
-        // printf("\tARR SIZE = %d\n", arr_size);
+        free(path);
     }
     return route;
 }
