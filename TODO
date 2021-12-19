@@ -5,7 +5,7 @@
 #5. Fix algorithm function and add route saving ability 
 #{ROUTE SAVING ABILITY ACTUALY WORKED, BUT I DIDNT COMPLETLY UNDERSTAND HOW ALGORITHM WORKS} 
 6 Code post processing function, to completly finish struct array for printing
-6.1 Make function for rewriting lists of destinations post processing function 
+#6.1 Make function for rewriting lists of destinations post processing function 
 #7. Code post processing algoritm for duplicates(Check if it is posible to get rid of some middle points)
 8. Add reversability for start and dest vars in route, not only in connect functions
  {Конект путей не происходит изза конфликта индексов 1 - 13 сработает, а 5 - 1 нет потомучто в структуре нету таких индексов}

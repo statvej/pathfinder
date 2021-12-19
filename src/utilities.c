@@ -1,6 +1,7 @@
 #include "libmx.h"
 #include "patfinder.h"
 #include <stdio.h>
+
 int mx_read_island_count(char *data) {
 
     int res = 0;
@@ -14,6 +15,7 @@ int mx_read_island_count(char *data) {
     free((void *)temp);
     return res;
 }
+
 int mx_get_lines_count(char **text) {
     if (!text) {
         return 0;
@@ -23,6 +25,7 @@ int mx_get_lines_count(char **text) {
     }
     return count;
 }
+
 int mx_atoi(const char *str) {
     if (!str)
         return 0;
@@ -36,6 +39,7 @@ int mx_atoi(const char *str) {
 
     return res;
 }
+
 int mx_check_dupl(char **check, char *sub) {
     for (int i = 0; check[i] != NULL; i++) {
 
@@ -54,4 +58,16 @@ int get_index_route(int *list) {
     }
 
     return res;
+}
+
+int *reverse_route(int *list, int value_size) {
+    int *temp = (int *)malloc(sizeof(int) * value_size);
+    for (int i = 0; i < value_size; i++) {
+        temp[i] = list[value_size - 1 - i];
+    }
+    for (int i = 0; i < value_size; i++) {
+        list[i] = temp[i];
+    }
+    free(temp);
+    return list;
 }
