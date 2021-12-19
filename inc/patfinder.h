@@ -1,6 +1,11 @@
 #define MAX_FILE_SIZE 1024
 #define INT_MAX 2147483647
-#define MAX_STOPS 5000
+#define DELIM_COUNT 40
+#define ARROW " -> "
+#define PLUS_SIGN " + "
+#define EQUAL_SIGN " = "
+
+
 // typedef struct s_ind_list {
 //     int index;
 //     struct s_ind_list *next;
@@ -62,6 +67,7 @@ int is_path_straight(int start, int dest, int namesLen, t_ind_len *ind_len);
 int get_index_from_route_struct(int start, int dest, int path_num, t_route *route);
 int get_num_index_in_arr(int num, int *arr, int arr_size);
 int *reverse_route(int *list, int value_size);
+int get_dist_betw_isl(int start, int dest, t_ind_len * ind_len, int namesLen);
 
 //Creating data structures
 
@@ -77,6 +83,10 @@ int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, i
 void mx_free_matrix(int **ptr, int len);
 void mx_free_route(t_route *route);
 
+//Result printing
+
+void mx_print_result(t_route *route, t_index_island *ind_isl, t_ind_len *ind_len, int side_size, int **matrix, int namesLen);
+void mx_print_delim(void);
 
 //Errors
 void mx_check_args(int argc);
