@@ -80,7 +80,7 @@ int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, i
 
 //Free functions
 
-void mx_free_matrix(int **ptr, int len);
+void mx_free_matrix(void **ptr, int len);
 void mx_free_route(t_route *route, int side_size);
 void mx_free_strght_len_struct(t_straight_len *straight_len, int namesLen);
 void mx_free_ind_len(t_ind_len *ind_len);

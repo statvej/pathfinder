@@ -2,7 +2,7 @@
 #include "patfinder.h"
 #include <stdio.h>
 
-void mx_free_matrix(int **ptr, int len)
+void mx_free_matrix(void **ptr, int len)
 {
     if (len < 0)
         while (*ptr)

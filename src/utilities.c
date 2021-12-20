@@ -30,7 +30,7 @@ int mx_atoi(const char *str) {
     if (!str)
         return 0;
 
-    char *temp = mx_unconstchar(str);
+    char *temp = (char*)str;
     int res = 0;
     int count = mx_strlen(temp);
     for (int i = 0; i <= count && mx_isdigit(str[i]); i++) {

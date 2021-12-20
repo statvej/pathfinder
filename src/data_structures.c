@@ -69,8 +69,8 @@ char **mx_get_island_names(char **untrimed, int side_size, int line_count) {
             *trim = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
             trim++;
         }
-        free(arr_temp);
-        free(arr_temp_sub);
+        mx_free_matrix((void**)arr_temp, 2);
+        mx_free_matrix((void**)arr_temp_sub, 2);
     }
     
     return ret;
@@ -86,8 +86,8 @@ t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count) {
         (ret + count1)->start = mx_strndup(arr_temp[0], mx_strlen(arr_temp[0]));
         (ret + count1)->dest = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
         (ret + count1)->len = mx_atoi(arr_temp_sub[1]);
-        free((void *)arr_temp);
-        free((void *)arr_temp_sub);
+        mx_free_matrix((void**)arr_temp, 2);
+        mx_free_matrix((void**)arr_temp_sub, 2);
     }
     return ret;
 }
