@@ -47,8 +47,8 @@ t_index_island *mx_gen_index_struct(char **trimed, int side_size) {
 
     for (int count = 0; count < side_size; count++) {
         ret[count].index = count;
-        ret[count].island = (char *)malloc(sizeof(char) * mx_strlen(trimed[count]));
-        ret[count].island = trimed[count];
+        ret[count].island = mx_strndup(trimed[count], mx_strlen(trimed[count]));
+        
     }
     return ret;
 }
@@ -69,25 +69,23 @@ char **mx_get_island_names(char **untrimed, int side_size, int line_count) {
             *trim = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
             trim++;
         }
-        mx_free_matrix((void**)arr_temp, 2);
-        mx_free_matrix((void**)arr_temp_sub, 2);
+        mx_free_matrix((void **)arr_temp, 2);
+        mx_free_matrix((void **)arr_temp_sub, 2);
     }
-    
+    trim = NULL;
     return ret;
 }
 t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count) {
     t_straight_len *ret = (t_straight_len *)malloc(sizeof(t_straight_len) * (line_count));
     int count1 = 0;
-    char **arr_temp = NULL;
-    char **arr_temp_sub = NULL;
     for (; count1 < line_count; count1++) {
-        arr_temp = mx_strsplit(untrimed[count1], '-');
-        arr_temp_sub = mx_strsplit(arr_temp[1], ',');
+        char **arr_temp = mx_strsplit(untrimed[count1], '-');
+        char **arr_temp_sub = mx_strsplit(arr_temp[1], ',');
         (ret + count1)->start = mx_strndup(arr_temp[0], mx_strlen(arr_temp[0]));
         (ret + count1)->dest = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
         (ret + count1)->len = mx_atoi(arr_temp_sub[1]);
-        mx_free_matrix((void**)arr_temp, 2);
-        mx_free_matrix((void**)arr_temp_sub, 2);
+        mx_free_matrix((void **)arr_temp, 2);
+        mx_free_matrix((void **)arr_temp_sub, 2);
     }
     return ret;
 }

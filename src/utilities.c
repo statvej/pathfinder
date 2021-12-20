@@ -6,7 +6,7 @@ int mx_read_island_count(char *data) {
 
     int res = 0;
     int del = mx_get_char_index((const char *)data, '\n');
-    char *temp = (char *)malloc(10 * sizeof(char));
+    char *temp = mx_strnew(10);
     for (int count = 0; count <= del; count++) {
         temp[count] = data[count];
     }
@@ -41,9 +41,10 @@ int mx_atoi(const char *str) {
 }
 
 int mx_check_dupl(char **check, char *sub) {
-    for (int i = 0; check[i] != NULL; i++) {
+    int count = 0;
+    for (; check[count] != NULL; count++) {
 
-        if (mx_strcmp(check[i], sub) == 0) {
+        if (mx_strcmp(check[count], sub) == 0) {
 
             return 0;
         }
