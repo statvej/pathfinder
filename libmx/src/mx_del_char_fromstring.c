@@ -33,11 +33,3 @@ char *mx_del_char_fromstring(char c, const char *str)
 }
 
 
-// int main()
-// {
-//     char *str = "wqhrfhg  iweruhg ouerhgy   9qwhgry oqryug     ";
-//     char *pp = mx_del_char_fromstring(' ', str);
-//     printf("%s", pp);
-//     free((void*)pp);
-
-// }

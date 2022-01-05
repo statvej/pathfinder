@@ -36,7 +36,7 @@ void print_len_struct(t_straight_len *arr_len, int namesLen) {
     fprintf(stderr, "\n\n\tSTRAIGHT LEN STRUCT :\n");
     for (int count = 0; count < namesLen; count++) {
         fprintf(stderr, "len struct start = %s\n", arr_len[count].start);
-        fprintf(stderr, "len struct dest = %s\nlen struct len = %d\n", arr_len[count].dest, arr_len[count].len);
+        fprintf(stderr, "len struct dest = %s\nlen struct len = %ld\n", arr_len[count].dest, arr_len[count].len);
     }
 }
 void print_ind_len_struct(t_ind_len *arr_len, int namesLen) {
@@ -45,7 +45,7 @@ void print_ind_len_struct(t_ind_len *arr_len, int namesLen) {
         fprintf(stderr, "len struct start = %d\n", arr_len[count].start);
         fprintf(stderr, "len struct dest = %d\nlen struct len = %d\n", arr_len[count].dest, arr_len[count].len);
     }
-}
+} 
 void print_single_route_struct(t_route route) {
     fprintf(stderr, "\n\n\tROUTE STRUCT :\n");
 

@@ -1,6 +1,5 @@
-#include "libmx.h"
-#include "patfinder.h"
-#include <stdio.h>
+#include "../libmx/inc/libmx.h"
+#include "../inc/patfinder.h"
 
 int mx_read_island_count(char *data) {
 
@@ -30,7 +29,7 @@ int mx_atoi(const char *str) {
     if (!str)
         return 0;
 
-    char *temp = (char*)str;
+    char *temp = (char *)str;
     int res = 0;
     int count = mx_strlen(temp);
     for (int i = 0; i <= count && mx_isdigit(str[i]); i++) {
@@ -71,4 +70,19 @@ int *reverse_route(int *list, int value_size) {
     }
     free(temp);
     return list;
+}
+
+int **mx_copy_matrix(int **orig, int side_size) {
+    int **ret = (int **)malloc(side_size * sizeof(int *));
+    for (int i = 0; i < side_size; i++) {
+        ret[i] = (int*) malloc(side_size * sizeof(int));
+    }
+    for (int count1 = 0; count1 < side_size; count1++)
+    {
+        for (int count2 = 0; count2 < side_size; count2++)
+        {
+            ret[count1][count2] = orig[count1][count2];
+        }
+    }
+    return ret;
 }

@@ -1,17 +1,21 @@
-#include "libmx.h"
-#include "patfinder.h"
-#include <stdio.h>
+#include "../libmx/inc/libmx.h"
+#include "../inc/patfinder.h"
 
 t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len *ind_len, int namesLen) {
-    for (int stage = 0; stage < side_size; stage++) {
+
+    for (int stage = side_size - 1; stage >= 0; stage--) {
 
         for (int start = 0; start < side_size; start++) {
 
             for (int dest = 0; dest < side_size; dest++) {
 
-                if (matrix[start][stage] + matrix[stage][dest] < matrix[start][dest] &&
-                    matrix[start][stage] + matrix[stage][dest] >= 0) {
+                if (matrix[start][stage] + matrix[stage][dest] == matrix[start][dest] && ) {
 
+                    printf("\tEVRICA!\n%d -> %d = %d\n", start, dest, matrix[start][stage] + matrix[stage][dest]);
+                }
+                if (matrix[start][stage] + matrix[stage][dest] < matrix[start][dest] &&
+                    matrix[start][stage] + matrix[stage][dest] >= 0 && matrix[start][stage] + matrix[stage][dest] > 0) {
+                    printf("\tREGULAR\n%d -> %d\n", start, dest);
                     for (int save_count = 0; save_count < side_size * (side_size - 1) / 2;
                          save_count++) { /*Добавление данных в структуру по
                                          которой пойдет печать*/
@@ -23,9 +27,10 @@ t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_
                 }
             }
         }
+        print_route_struct(struct_route, side_size * (side_size - 1) / 2);
     }
     struct_route = temp_path_completion(struct_route, side_size);
-    struct_route = post_algorithm_processing(struct_route, side_size, matrix, ind_len, namesLen);
+    struct_route = post_algorithm_processing(struct_route, side_size, ind_len, namesLen);
     // print_route_struct(struct_route, side_size * (side_size - 1) / 2);
     // mx_print_matrix(matrix, side_size);
 
@@ -65,11 +70,9 @@ int check_optimal_route(t_route checked, int **matrix, t_ind_len *ind_len, int n
         for (int count2 = 0; count2 < namesLen; count2++) {
             if (ind_s == ind_len[count2].start && ind_d == ind_len[count2].dest) {
                 sub_path = ind_len[count2].len;
-                // fprintf(stderr, "SUB PATH 1st IF = %d\n", sub_path);
             }
             if (ind_d == ind_len[count2].start && ind_s == ind_len[count2].dest) {
                 sub_path = ind_len[count2].len;
-                // fprintf(stderr, "SUB PATH 1st IF = %d\n", sub_path);
             }
         }
         sum += sub_path;
@@ -83,11 +86,9 @@ int check_optimal_route(t_route checked, int **matrix, t_ind_len *ind_len, int n
 int is_path_straight(int start, int dest, int namesLen, t_ind_len *ind_len) {
     for (int i = 0; i < namesLen; i++) {
         if (ind_len[i].start == start && ind_len[i].dest == dest) {
-            // fprintf(stderr, "Path is straight\n");
             return 1;
         }
         if (ind_len[i].start == dest && ind_len[i].dest == start) {
-            // fprintf(stderr, "Path is straight\n");
             return 1;
         }
     }
@@ -152,24 +153,21 @@ int *conect_routes(int *main, int *sub, int start, int dest, int side_size) {
     return main;
 }
 
-t_route *
-post_algorithm_processing(t_route *struct_route, int side_size, int **matrix, t_ind_len *ind_len, int namesLen) {
+t_route *post_algorithm_processing(t_route *struct_route, int side_size, t_ind_len *ind_len, int namesLen) {
     int path_num = side_size * (side_size - 1) / 2;
     for (int count1 = 0; count1 < path_num; count1++) {
         /* Going through all the destinations*/
-        for (int count2 = 0; count2 < get_index_route(struct_route[count1].list) -1;
+        for (int count2 = 0; count2 < get_index_route(struct_route[count1].list) - 1;
              count2++) { // Probably should be changed to "-1", instead of "-2"
             int temp_start = struct_route[count1].list[count2];
             int temp_dest = struct_route[count1].list[count2 + 1];
             if (is_path_straight(temp_start, temp_dest, namesLen, ind_len) == false) {
                 int temp_ind = get_index_from_route_struct(temp_start, temp_dest, path_num, struct_route);
-                //conect_routes_print_check(
-                //    struct_route[count1].list, struct_route[temp_ind].list, temp_start, temp_dest, side_size);
+
                 struct_route[count1].list = conect_routes(
                     struct_route[count1].list, struct_route[temp_ind].list, temp_start, temp_dest, side_size);
             }
         }
-        //print_single_route_struct(struct_route[count1]);
     }
     for (int count1 = 0; count1 < path_num; count1++) {
         int value_size = get_index_route(struct_route[count1].list);

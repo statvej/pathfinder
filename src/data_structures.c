@@ -1,6 +1,5 @@
-#include "libmx.h"
-#include "patfinder.h"
-#include <stdio.h>
+#include "../libmx/inc/libmx.h"
+#include "../inc/patfinder.h"
 
 int **init_matrix(int side_size) {
     int **matrix = (int **)malloc(sizeof(int *) * side_size);
@@ -48,13 +47,16 @@ t_index_island *mx_gen_index_struct(char **trimed, int side_size) {
     for (int count = 0; count < side_size; count++) {
         ret[count].index = count;
         ret[count].island = mx_strndup(trimed[count], mx_strlen(trimed[count]));
-        
     }
     return ret;
 }
 
 char **mx_get_island_names(char **untrimed, int side_size, int line_count) {
-    char **trim = malloc(side_size * sizeof(char *));
+    char **trim = (char **)malloc(side_size * sizeof(char *));
+    for (int i = 0; i < side_size; i++) {
+        trim[i] = NULL;
+    }
+
     char **ret = trim;
     char **arr_temp = NULL;
     char **arr_temp_sub = NULL;
@@ -77,13 +79,20 @@ char **mx_get_island_names(char **untrimed, int side_size, int line_count) {
 }
 t_straight_len *mx_get_straight_len_struct(char **untrimed, int line_count) {
     t_straight_len *ret = (t_straight_len *)malloc(sizeof(t_straight_len) * (line_count));
-    int count1 = 0;
-    for (; count1 < line_count; count1++) {
+    int count1 = 1;
+    for (; count1 <= line_count ; count1++) {
         char **arr_temp = mx_strsplit(untrimed[count1], '-');
         char **arr_temp_sub = mx_strsplit(arr_temp[1], ',');
-        (ret + count1)->start = mx_strndup(arr_temp[0], mx_strlen(arr_temp[0]));
-        (ret + count1)->dest = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
-        (ret + count1)->len = mx_atoi(arr_temp_sub[1]);
+        (ret + count1 - 1)->start = mx_strndup(arr_temp[0], mx_strlen(arr_temp[0]));
+        (ret + count1 - 1)->dest = mx_strndup(arr_temp_sub[0], mx_strlen(arr_temp_sub[0]));
+        if (mx_atoi(arr_temp_sub[1]) > 0) {
+            (ret + count1 - 1)->len = mx_atoi(arr_temp_sub[1]);
+        }
+        else {
+            mx_free_strght_len_struct(ret, count1);
+            mx_free_matrix((void *)untrimed, line_count + 1);
+            print_line_invalid(count1 + 1);
+        }
         mx_free_matrix((void **)arr_temp, 2);
         mx_free_matrix((void **)arr_temp_sub, 2);
     }
@@ -99,7 +108,6 @@ t_route *mx_init_route_struct(int side_size) {
             ret[grand_count].list = (int *)malloc(sizeof(int) * side_size);
             for (int i = 0; i < side_size; i++) {
                 ret[grand_count].list[i] = -1;
-                // printf("\t\t%d\n", ret[grand_count].list[i]);
             }
             grand_count++;
         }

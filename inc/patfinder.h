@@ -5,12 +5,6 @@
 #define PLUS_SIGN " + "
 #define EQUAL_SIGN " = "
 
-
-// typedef struct s_ind_list {
-//     int index;
-//     struct s_ind_list *next;
-
-// } t_ind_list;
 typedef struct s_ind_len{
     int start;
     int dest;
@@ -32,7 +26,7 @@ typedef struct s_index_island {
 typedef struct s_straight_len {
     char *start;
     char *dest;
-    int len;
+    long int len;
 
 } t_straight_len;
  
@@ -42,7 +36,7 @@ typedef struct s_straight_len {
 
 t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len * ind_len, int namesLen);
 t_route *temp_path_completion(t_route *route, int side_size);
-t_route *post_algorithm_processing(t_route *struct_route, int side_size, int **matrix, t_ind_len *ind_len, int namesLen);
+t_route *post_algorithm_processing(t_route *struct_route, int side_size, t_ind_len *ind_len, int namesLen);
 int *conect_routes(int *main, int *sub, int start, int dest, int side_size);
 
 
@@ -68,6 +62,7 @@ int get_index_from_route_struct(int start, int dest, int path_num, t_route *rout
 int get_num_index_in_arr(int num, int *arr, int arr_size);
 int *reverse_route(int *list, int value_size);
 int get_dist_betw_isl(int start, int dest, t_ind_len * ind_len, int namesLen);
+int **mx_copy_matrix(int **orig, int side_size);
 
 //Creating data structures
 
@@ -92,12 +87,9 @@ void mx_print_result(t_route *route, t_index_island *ind_isl, t_ind_len *ind_len
 void mx_print_delim(void);
 
 //Errors
+void print_line_invalid(int linenum);   
 void mx_check_args(int argc);
 void mx_check_file(int fd, const char *filename);
 void mx_check_size(const char *filename);
-void mx_check_length(const char *length, int linenum);
-void mx_check_line(const char *island1, const char *island2,
-                   const char *length, int linenum);
-void mx_check_islands_num(int size_so_far, int size_max, int last);
-void mx_check_duplicates(int weight_so_far);
-void mx_check_sum(int *sum_so_far, int next);
+void mx_check_length(const char *length);
+void mx_check_sum_length(t_straight_len *str_len, int namesLen, char **lines);

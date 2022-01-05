@@ -4,9 +4,9 @@ ODIR = obj
 SDIR = src
 LDIR = libmx
 #compiler settings
-CC = gcc
+CC = clang
 CFLAGS = -std=c11
-CCFLAGS = -std=c11 #-g -Wall -Wextra -Werror -Wpedantic# -Og -g3 -fsanitize=address
+CCFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic# -Og -g3 -fsanitize=address
 FLAGS = $(CCFLAGS) -I $(IDIR) -I $(LDIR)/$(IDIR)
 #dependencies
 NAME = pathfinder
@@ -29,28 +29,23 @@ $(LDIR)/$(LIB):
 #make objects
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	@mkdir -p obj
-	@printf "\33[2KCompiling \33[0;32m$<\33[m\n"
 	@$(CC) $(FLAGS) -c $< -o $@
 
 
 #make excecutable
 $(NAME): $(OBJS) $(LDIR)/$(LIB)
 	@$(CC) $(FLAGS) $^ -o $@
-	@printf "\r\33[2KExcecutable for \33[0;32m$@\33[m done!\n"
-	@printf "Usage: ./$@ [filename]\n"
 
 .PHONY: clean uninstall reinstall
 
 #delete all files
 uninstall: clean
-	@printf "\r\33[2K\33[0;33mUninstalling $(NAME)...\33[m\n"
 	@rm -f $(NAME)
 	@make $@ -C $(LDIR)
 
 #remove all temp files
 clean:
 	@rm -rf $(ODIR)
-	@printf "\r\33[2K\33[0;33mRemoving temporary $(NAME) files...\33[m\n"
 	@make $@ -C $(LDIR)
 
 #rebuild project

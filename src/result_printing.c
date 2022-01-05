@@ -1,5 +1,5 @@
-#include "libmx.h"
-#include "patfinder.h"
+#include "../libmx/inc/libmx.h"
+#include "../inc/patfinder.h"
 
 void mx_print_delim(void) {
     for (int i = 0; i < DELIM_COUNT; i++) {
@@ -18,7 +18,7 @@ void mx_print_path(t_route route, t_index_island *ind_isl) {
 }
 
 void mx_print_route(t_route route, t_index_island *ind_isl) {
-    mx_printstr("Route: ");
+    mx_printstr("Route: ");
     int islands_count = get_index_route(route.list);
     for (int count = 0; count < islands_count; count++) {
         mx_printstr(ind_isl[route.list[count]].island);

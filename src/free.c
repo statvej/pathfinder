@@ -1,6 +1,6 @@
-#include "libmx.h"
-#include "patfinder.h"
-#include <stdio.h>
+#include "../libmx/inc/libmx.h"
+#include "../inc/patfinder.h"
+    
 
 void mx_free_matrix(void **ptr, int len) {
     for (int i = 0; i < len; i++) {
