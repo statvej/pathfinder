@@ -38,6 +38,8 @@ t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_
 t_route *temp_path_completion(t_route *route, int side_size);
 t_route *post_algorithm_processing(t_route *struct_route, int side_size, t_ind_len *ind_len, int namesLen);
 int *conect_routes(int *main, int *sub, int start, int dest, int side_size);
+t_route *mx_insert_route(int *route_count, t_route *route, int stage, int start, int dest, int side_size);
+t_route *mx_multi_path_detector(int **matrix, t_route *route, int side_size, int *route_count);
 
 
 //Checks
@@ -63,6 +65,7 @@ int get_num_index_in_arr(int num, int *arr, int arr_size);
 int *reverse_route(int *list, int value_size);
 int get_dist_betw_isl(int start, int dest, t_ind_len * ind_len, int namesLen);
 int **mx_copy_matrix(int **orig, int side_size);
+int *mx_copy_route_list(int*list, int side_size);
 
 //Creating data structures
 
@@ -76,7 +79,7 @@ int **mx_create_matrix(t_index_island *struct_arr, t_straight_len *struct_len, i
 //Free functions
 
 void mx_free_matrix(void **ptr, int len);
-void mx_free_route(t_route *route, int side_size);
+void mx_free_route(t_route *route, int path_num);
 void mx_free_strght_len_struct(t_straight_len *straight_len, int namesLen);
 void mx_free_ind_len(t_ind_len *ind_len);
 void mx_free_ind_isl(t_index_island *ind_isl, int side_size);
@@ -87,6 +90,8 @@ void mx_print_result(t_route *route, t_index_island *ind_isl, t_ind_len *ind_len
 void mx_print_delim(void);
 
 //Errors
+
+void print_int_err(int n);
 void print_line_invalid(int linenum);   
 void mx_check_args(int argc);
 void mx_check_file(int fd, const char *filename);

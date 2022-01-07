@@ -86,3 +86,11 @@ int **mx_copy_matrix(int **orig, int side_size) {
     }
     return ret;
 }
+int *mx_copy_route_list(int*list, int side_size){
+    int* ret = (int*)malloc(sizeof(int) * side_size);
+    for (int i = 0; i < side_size; i++)
+    {
+        ret[i] = list[i];
+    }
+    return ret;
+}

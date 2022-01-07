@@ -8,8 +8,7 @@ void mx_free_matrix(void **ptr, int len) {
     }
     free(ptr);
 }
-void mx_free_route(t_route *route, int side_size) {
-    int path_num = side_size * (side_size - 1) / 2;
+void mx_free_route(t_route *route, int path_num) {
     for (int i = 0; i < path_num; i++) {
         free(route[i].list);
     }

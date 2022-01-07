@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
     free(data);
     
     int namesLen = mx_get_lines_count(&lines[1]);
+    int path_count = (side_size*(side_size-1))/2;
 
     t_straight_len *arr_len = mx_get_straight_len_struct(lines, namesLen);
     mx_check_sum_length(arr_len, namesLen, lines);
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
     mx_free_strght_len_struct(arr_len, namesLen);
     mx_free_ind_len(ind_len);
     mx_free_ind_isl(struct_arr, side_size);
-    mx_free_route(route_arr, side_size);
+    mx_free_route(route_arr, path_count);
     mx_free_matrix((void *)matrix, side_size);
     mx_free_matrix((void *)lines, namesLen + 1);
     mx_free_matrix((void *)trimed, side_size);
