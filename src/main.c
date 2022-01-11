@@ -16,9 +16,9 @@ int main(int argc, char **argv) {
     char **lines = mx_strsplit(data, '\n');
     int side_size = mx_read_island_count(data);
     free(data);
-    
+    int route_count = (side_size * (side_size - 1)) / 2;
     int namesLen = mx_get_lines_count(&lines[1]);
-    int path_count = (side_size*(side_size-1))/2;
+    int path_count = (side_size * (side_size - 1)) / 2;
 
     t_straight_len *arr_len = mx_get_straight_len_struct(lines, namesLen);
     mx_check_sum_length(arr_len, namesLen, lines);
@@ -29,9 +29,9 @@ int main(int argc, char **argv) {
     int **matrix = mx_create_matrix(struct_arr, arr_len, side_size, namesLen);
     t_route *route_arr = mx_init_route_struct(side_size);
 
-    route_arr = mx_algorithm(route_arr, matrix, side_size, ind_len, namesLen);
+    route_arr = mx_algorithm(route_arr, matrix, side_size, ind_len, namesLen, &route_count);
 
-    mx_print_result(route_arr, struct_arr, ind_len, side_size, matrix, namesLen);
+    mx_print_result(route_arr, struct_arr, ind_len, route_count, matrix, namesLen);
 
     mx_free_strght_len_struct(arr_len, namesLen);
     mx_free_ind_len(ind_len);

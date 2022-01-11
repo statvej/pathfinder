@@ -59,8 +59,7 @@ void mx_print_distance(int *list, t_ind_len *ind_len, int result, int namesLen) 
 }
 
 void mx_print_result(
-    t_route *route, t_index_island *ind_isl, t_ind_len *ind_len, int side_size, int **matrix, int namesLen) {
-    int path_num = side_size * (side_size - 1) / 2;
+    t_route *route, t_index_island *ind_isl, t_ind_len *ind_len, int path_num, int **matrix, int namesLen) {
     for (int count = 0; count < path_num; count++) {
         int result = matrix[route[count].start][route[count].dest];
         mx_print_delim();
