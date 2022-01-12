@@ -47,7 +47,7 @@ void print_ind_len_struct(t_ind_len *arr_len, int namesLen) {
     }
 } 
 void print_single_route_struct(t_route route) {
-    fprintf(stderr, "\n\n\tROUTE STRUCT :\n");
+    fprintf(stderr, "\n\n\tSINGLE ROUTE STRUCT :\n");
 
     fprintf(stderr, "START IS %d\nDEST IS %d\n", route.start, route.dest);
     if (route.list[0] != -1) {

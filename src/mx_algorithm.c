@@ -2,15 +2,14 @@
 #include "../inc/patfinder.h"
 #include <stdio.h>
 
-t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len *ind_len, int namesLen, int * route_count) {
+t_route *
+mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_len *ind_len, int namesLen, int *route_count) {
     for (int stage = 0; stage < side_size; stage++) {
 
         for (int start = 0; start < side_size; start++) {
 
             for (int dest = 0; dest < side_size; dest++) {
 
-                if (matrix[start][stage] + matrix[stage][dest] == matrix[start][dest]) {
-                }
                 if (matrix[start][stage] + matrix[stage][dest] < matrix[start][dest] &&
                     matrix[start][stage] + matrix[stage][dest] >= 0 && matrix[start][stage] + matrix[stage][dest] > 0) {
                     for (int save_count = 0; save_count < side_size * (side_size - 1) / 2;
@@ -25,44 +24,37 @@ t_route *mx_algorithm(t_route *struct_route, int **matrix, int side_size, t_ind_
             }
         }
     }
-    mx_print_matrix(matrix, side_size);
-    struct_route = mx_multi_path_detector(matrix, struct_route, side_size, route_count);
-    fprintf(stderr, "/tCHECK!!!");
     struct_route = temp_path_completion(struct_route, *route_count);
+    struct_route = mx_multi_path_detector(matrix, struct_route, side_size, route_count);
     struct_route = post_algorithm_processing(struct_route, side_size, ind_len, namesLen, *route_count);
-    print_route_struct(struct_route, *route_count);
-    // mx_print_matrix(matrix, side_size);
 
     return struct_route;
 }
 
 t_route *mx_insert_route(int *route_count, t_route *route, int stage, int start, int dest, int side_size) {
     int new_size = (*route_count) + 1;
-    int index_new = get_index_from_route_struct(start, dest, *route_count, route) + 1;
-    fprintf(stderr, "NEW SIZE %d\n", new_size);
-    t_route *ret = malloc(sizeof(t_route) * new_size);
+    int index_new = get_index_from_route_struct(start, dest, new_size - 1, route) + 1;
+    t_route *ret = (t_route *)malloc(sizeof(t_route) * new_size);
     int count1 = 0;
     for (; count1 < index_new; count1++) {
         ret[count1].dest = route[count1].dest;
         ret[count1].start = route[count1].start;
         ret[count1].list = mx_copy_route_list(route[count1].list, side_size);
     }
-    int grand_count = count1 + 1;
-    ret[grand_count].dest = dest;
-    ret[grand_count].start = start;
-    ret[grand_count].list = (int *)malloc(sizeof(int) * side_size);
+    ret[index_new].dest = dest;
+    ret[index_new].start = start;
+    ret[index_new].list = (int *)malloc(sizeof(int) * side_size);
     for (int i = 0; i < side_size; i++) {
-        ret[grand_count].list[i] = -1;
+        ret[index_new].list[i] = -1;
     }
-    ret[grand_count].list[0] = start;
-    ret[grand_count].list[1] = stage;
-    ret[grand_count].list[2] = dest;
-    for (; count1 < index_new; count1++) {
-        ret[grand_count].dest = route[count1].dest;
-        ret[grand_count].start = route[count1].start;
-        ret[grand_count].list = mx_copy_route_list(route[count1].list, side_size);
+    ret[index_new].list[0] = start;
+    ret[index_new].list[1] = stage;
+    ret[index_new].list[2] = dest;
+    for (; count1 < new_size - 1; count1++) {
+        ret[count1 + 1].dest = route[count1].dest;
+        ret[count1 + 1].start = route[count1].start;
+        ret[count1 + 1].list = mx_copy_route_list(route[count1].list, side_size);
     }
-
     mx_free_route(route, *route_count);
     *route_count = new_size;
     return ret;
@@ -75,8 +67,10 @@ t_route *mx_multi_path_detector(int **matrix, t_route *route, int side_size, int
         for (int start = 0; start < side_size; start++) {
 
             for (int dest = 0; dest < side_size; dest++) {
-
-                if (matrix[start][stage] + matrix[stage][dest] == matrix[start][dest]) {
+                int ind_route = get_index_from_route_struct(start, dest, *route_count, route);
+                if (matrix[start][stage] + matrix[stage][dest] == matrix[start][dest] &&
+                    matrix[start][stage] + matrix[stage][dest] > 0 && start != stage && dest != stage &&
+                    stage != route[ind_route].list[1]) {
                     route = mx_insert_route(route_count, route, stage, start, dest, side_size);
                 }
             }
@@ -146,12 +140,12 @@ int is_path_straight(int start, int dest, int namesLen, t_ind_len *ind_len) {
 int get_index_from_route_struct(int start, int dest, int path_num, t_route *route) {
     for (int i = 0; i < path_num; i++) {
         if (start == route[i].start && dest == route[i].dest) {
-            for (; start == route[i].start && dest == route[i].dest; i++) {
+            for (; start == route[i + 1].start && dest == route[i + 1].dest; i++) {
             }
             return i;
         }
         else if (dest == route[i].start && start == route[i].dest) {
-            for (; dest == route[i].start && start == route[i].dest; i++) {
+            for (; dest == route[i + 1].start && start == route[i + 1].dest; i++) {
             }
             return i;
         }
@@ -205,7 +199,8 @@ int *conect_routes(int *main, int *sub, int start, int dest, int side_size) {
     return main;
 }
 
-t_route *post_algorithm_processing(t_route *struct_route, int side_size, t_ind_len *ind_len, int namesLen, int path_num) {
+t_route *
+post_algorithm_processing(t_route *struct_route, int side_size, t_ind_len *ind_len, int namesLen, int path_num) {
     for (int count1 = 0; count1 < path_num; count1++) {
         /* Going through all the destinations*/
         for (int count2 = 0; count2 < get_index_route(struct_route[count1].list) - 1;
